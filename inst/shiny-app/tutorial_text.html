@@ -1,0 +1,244 @@
+<html>
+<h1 style="font-size:40px; margin:10px;"><strong>clevRvis</strong></h1>
+<p style="font-size:30px;"><em>An Interactive App for the visualization of Clonal Evolution</em></p>
+<body>
+	<div id="contentBox">
+		<a href="#section_1"><strong>Section 1 |</strong> Introduction to clevRvis</a>
+		<a href="#Intro"><li>What is clevRvis?</li></a>
+		<a href="#options"><li>What can clevRvis do?</li></a>
+		<ol>
+		  <a href="#explTree"><li>Alternative trees exploration</li></a>
+			<a href="#TpEstim"><li>Automatic time points interpolation</li></a>
+			<a href="#ThpEff"><li>Therapy effect estimation</li></a>
+			<a href="#shk"><li>Shark plot</li></a>
+			<a href="#dph"><li>Dolphin plot</li></a>
+			<a href="#plc"><li>Plaice plot</li></a>
+		</ol>
+		<a href="#section_2"><strong>Section 2 | </strong>Tutorial: Visualization of the clonal evolution with a real example </a>
+		<ol>
+			<a href="#inputs"><li>Necessary Inputs</li></a>
+			<a href="#genSeaObj"><li>Generating the seaObject</li></a>
+			<a href="#plotting"><li>Visualizing the clonal evolution</li></a>
+			<ul>
+				<a href="#sharkDolphin"><li>Shark and Dolphin plots</li></a>
+				<a href="#plaiceViz"><li>Plaice plot </li></a>
+				<a href="#annots"><li>Annotations</li></a>
+
+			</ul>
+		</ol>
+	</div>
+	<br>
+	<br>
+	<br>
+	<a id="section_1"><h2><strong>Section 1 |</strong>Introduction to clevRvis</h2></a>
+	<a id="Intro"><h3>What is clevRvis?</h3></a>
+	<p style="text-align: justify;"> clevRvis is a tool for interactive clonal evolution visualization. The graphical user interface eases the use for scientists, physicians and biologists without knowledge in bioinformatics or computer science.  </p>
+
+	<br><br>
+	<a id="options"><h3>What can clevRvis do?</h3></a>
+	<p style="text-align: justify;">clevRvis can generate three different types of plots: 1) shark plots (basic tree representation of clonal evolution), 2) dolphin plots (a more detailed fish plot-like representation) and 3) plaice plots (which allow the easy visualizaiton on biallelic events). </p>
+<p>Moreover, the plots generated contain a phylogeny-aware color coding of the clones for an optimal visualization. </p>
+	<br><br>
+	<a id="explTree"><h4>Alternative trees exploration</h4></a>
+	  <p>To create a seaObject, the basis for all plotting functions in clevRvis, a
+fracTable, a timepoints vector and a parents vector are required. clevRvis
+provides an approach to determine all valid parental relations on the basis of
+the information provided in fracTable and the timepoints vector. Thereby,
+alternative trees can be explored.</p>
+
+<p>To optimize run-time, the analysis is devided into 3 step procedure:</p>
+
+<p>
+<li>Possible parents are determined. If clone 1 has at any measured time point a
+    lower CCF compared to clone 2, then clone 1 cannot be clone 2's parent.</li>
+
+<li>Possible branched dependent evolution is investigated. If clone 2 can only
+    develope from clone 1, the difference in CCFs for clone 1 and clone 2 is
+    calculated. Every remaining clone with a CCF larger than the difference
+    cannot develop from clone 1.</li>
+
+<li>All remaining, possible parental relations are determined. An extensive
+    validity check is performed using clevRvis (validity check when creating a
+    seaObject). A maximum of 20,000 parental relations is investigated.</li>
+    </p>
+
+	<a id="TpEstim"><h4>Automatic time points interpolation </h4></a>
+    	<p style="text-align: justify;"> A central challenge in studying clonal evolution is the difficulty of collecting multiple samples along time from cancer patients, for this reason we implemented an automatic interpolation for extra time points. This automatic time point interpolation allows for a visualization with an equidistant development of clones using as few as one measured time point. </p>
+<p style="text-align: justify;">The extra time points interpolation can be activated when creating the seaObject. The time point of origin (time point where the first clone emerges) can be manually specified although, by default, it is assumed to be the difference in time between the first and second measured time point. <i>(e.g if time point 1 is day 0 and time point 2 is day 30 the origin time point will be day -30)</i>. </p>
+<br>
+<p><strong><i>When to use time point interpolation?</i></strong></p>
+<p style="text-align: justify;"> time point interpolation will always help to visualize an equidistant development of the clones. Nevertheless, when there are many measured time points it might not be necessary. </p>
+<p style="text-align: justify;"><li>When having less time points than clones, or many new clones emerging in one single measured time point, the extra time point interpolation is strongly recommended to visualize the clonal evolution properly.</li></p>
+<p style="text-align: justify;"><li>If there is only one measured time point, time point interpolation is <bold>needed</bold> and the time point of origin must be <bold>manually specified</bold>, as there is no way of calculating it.</li></p>
+    	<br>
+	<a id="ThpEff"><h4>Therapy effect estimation</h4></a>
+	    <p style="text-align: justify;"> time point interpolation doesn't show a decrease the tumor load at any point, as it is expected in the absence of therapy. To visualize the effect of therapy on the clones' Cancer Cell Fractions (CCFs), extra time points interpolation is not enough. </p>
+	    <p style="text-align: justify;"> In clevRvis, we implemented an updated, fully automatic approach for therapy effect estimation. When creating the seaObject a specific time point can be defined (between two measured time points) or two measured time points can be selected (new therapy effect time point will be in the middle) for the estimation of the therapy effect. </p>
+    	<br>
+	<a id="shk"><h4>Shark plot</h4></a>
+	    <p style="text-align: left;">Shark plot is the basic approach for visualization: common trees, with nodes representing clones and edges indicating their evolutionary relation. Phylogeny can be directly deduced from these plots. </p>
+<p style="text-align: justify;">Shark plot also offers an extension to visualize the changes in CCF along time for each clone. CCFs of each clone (rows) at each time point (columns) are shown as point size next to the basic shark plot.
+</p>
+    	<br>
+	<a id="dph"><h4>Dolphin plot</h4></a>
+	    <p style="text-align: left;">Dolphin plot displays detailed information on clonal evolution, showing the development of all clones over time (x-axis) and their clonal prevalence (y-axis). Information on phylogeny, CCFs and time course characterizing a clonal evolution are jointly visualized in this single plot. </p>
+<p style="text-align: justify;">Several basic options for customizing dolphin plots are available, e.g. switching between spline and polygon shape, bottom or central visualization, annotations, separating independent clones, adding vertical lines and labels, changing border and vertical lines colors, etc. </p>
+
+<p style="text-align: justify;">If dolphin plots are chosen to be plotted along with basic shark plots, both plots are internally connected. By hovering on one of the clones, it is automatically highlighted in both, shark and dolphin plot. Nevertheless, shark plots with the extension and solphin plots can NOT be visualized together.
+</p>
+    	<br>
+	<a id="plc"><h4>Plaice plot</h4></a>
+	    <p style="text-align: left;">Plaice plots are based on the bottom visualization of dolphin plots ("flatfish" = plaice), mirrored above and below the x-axis. They have been developed to improve the visualization of biallelic events.
+	    Plaice plots provide an allele-aware visualization of clonal evolution. Plots
+show the development of all clones over time (x axis) and their clonal
+prevalences (y axis), and the ratio of remaining healthy alleles (lower plaice).</p>
+
+<p style="text-align: justify;">Clonal evolution can be visualized in the upper half of the plaice plot. Several options similar to the ones for dolphin plot are available as well for plaice plot: switching between spline and polygon shape, annotations, separating independent clones (recommended), adding vertical lines and labels, etc. </p>
+
+<p style="text-align: justify;"> On the bottom half of the plot, a (by default) not colored mirrored representation of clonal evolution is plotted. The user may choose which clones and with which clones' color to paint in order to show which clones caused biallelic events.</p>
+
+<p style="text-align: justify;"> <bold>How does the clone coloring work?</bold></p>
+
+<p style="text-align: justify;">
+<li>An uncolored clone indicates that at least one copy of a healthy allele is present for all genes.</li>
+<li>A colored clone indicates that a bi-allelic event took place. As a
+    consequence, no healthy allele of the gene(s) affected by the bi-allelic
+    event remains.</li>
+<ol>
+    <li>If clone 1 carries a point mutation in TP53 and clone 2 carries an
+        additional del17p (affecting the remaining healthy allele), clone 2 in
+        the lower plaice should be colored in the same hue as clone 1 in the
+        upper plaice, which is originally charaterized by mutation in TP53,
+        indicating that the double-hit event affected TP53.</li>
+    <li>If clone 1 carries a deletion of 17p and clone 2 carries an additional
+        point mutation in TP53 (affecting the remaining healthy allele), clone 2
+        in the lower plaice should be colored in the same hue as clone 2 in the
+        upper plaice, which is originally charaterized by mutation in TP53,
+        indicating that the double-hit event affected TP53.</li>
+    <li>If clone 2 carries two point mutations in TP53 affecting different
+        alleles, clone 2 in the lower plaice should be colored in the same hue
+        as clone 2 in the upper plaice, indicating that the double-hit event
+        affected TP53.</li>
+    <li>If clone 2 carries a variant affecting the X chromosome of a male
+        subject, leading to a loss of the only available healthy allele, clone 2
+        in the lower plaice should be colored in the same hue as clone 2 in the
+        upper plaice, indicating he hemizygous variant affecting a gene on the X
+        chromosome.</li>
+  </ol>
+</p>
+    	<br><br><br>
+
+    <a id="section_2"><h2><strong>Section 2 |</strong>Tutorial: Visualization of the clonal evolution with an example</h2></a>
+	<a id="inputs"><h3>1. Necessary inputs </h3></a>
+	<p style="text-align: justify;"> <li>Cancer Cell Fractions (CCFs) input table:</li></p> <ol><p style="text-align: justify;">The file must be an Excel or CSV containing a table with the CCFs of each clone at each time point. Each row in the table must correspond to a clone and each column to a time point. Optionally, time point values can be set on the first row, clone labels on the first column and parental relations can be specified in a column called "parents". Using the switches in the app the user must specify what does the input table contain.  </p></ol>
+	<p style="text-align: justify;"> <li>Time points:</li></p> <ol><p style="text-align: justify;">If the first row of the input table corresponds to the time points it should be indicated in the input tab. Otherwise, automatic time points (going from 1 to number of columns in the file) can be used. time points can also be defined manually by writing the time points values in the text box separated by commas <i>(e.g 0,30,100)</i>.</p></ol>
+
+	<p style="text-align: justify;"> <li>Clone Labels:</li></p> <ol><p style="text-align: justify;">If Clone Labels are written in the first column of the input table it should be indicated. Otherwise, automatic clone labels (Clone 1, Clone 2 … ) can be used. Clone labels can also be manually defined by writing them separated by commas in the text box <i>(e.g A,B,C)</i>.</p></ol>
+
+	<p style="text-align: justify;"> <li>Parental relations:</li></p> <ol><p style="text-align: justify;">If the input table contains a column called "parents", defining the parental relations, it should be indicated by selecting <i>Column "parents" included</i> In the case that the input table does not contain the parental relations, the user must select <i>Define parental relations interactively</i>. Once the input table has been correctly uploaded and the Clone Labels defined, a selector for each clone will appear. The parent of each clone should be selected from the options in the dropdown list. Once all clones have a parent selected, the submit button must be clicked to run a validation and to define the parental relations. </p></ol>
+
+	<p style="text-align: centered;"><strong>To define the time points, clone labels and parental relations from the app the input file must not contain them (must only contain CCFs). </strong></p>
+
+<p style="text-align: justify;"> <li>Explore alternative trees: </li></p> <ol><p style="text-align: justify;">In the inputs tab we find a switch to explore alternative trees. When switched on, a dropdown list will appear with the possible vectors for defining the parental relations. When "Explore alternative trees" is activated, the parental relations selected in the dropdown will be the ones used to generate the seaObject afterwards. Any other parental relations defined before (in the input table or interactively through the app) will be ignored. </p></ol>
+
+	<h4>Example:</h4>
+	<p><img style="display: block; margin-left: auto; margin-right: auto;" src="inputs.png" width="100%" height="100%" /></p>
+
+	<p style="text-align: middle;">The Input file contains a table with seven columns and six rows. The first row corresponds to the time points (<i>0,2,5,8,12</i>), the first column corresponds to the clone labels (<i>Clone A, Clone B, Clone C, Clone D, Clone E</i>) and the last column corresponds to the parental relations vector <i>(0,1,2,3,2)</i> therefore the file contains the CCFs of five clones on five time points. The evolution of the clones is branched as(<i>Clone C and Clone E</i>)  share the same parent (<i>Clone B</i>).</p>
+	<br><br>
+	<p><img style="display: block; margin-left: auto; margin-right: auto;" src="successInputs.png" width="100%" height="100%" /></p>
+
+	<p style="text-align: justify;">After clicking submit inputs, the validation will run. Once the validation has run, a pop-up message will appear confirming the parental relations have been successfully defined or showing a message with the error that has been found.  If there is any error it must be fixed, and the validation must run again before going to the next step.</p>
+	<br><br>
+	<a id="genSeaObj"><h3>2. Generating the seaObject</h3></a>
+	<p style="text-align: justify;">The seaObject is an R object containing all the necessary information for the visualization of clonal evolution. When creating the seaObject, extra time points or therapy effect can be estimated if desired. Both time point interpolation and therapy effect estimation will be shown in the further plots. </p>
+
+	<p style="text-align: justify;"> <li>Extra time point interpolation:</li></p> <ol><p style="text-align: justify;">The interpolation of extra time points is highly recommended and absolutely needed if the input data contains only one time point. Switching the time point interpolation on will show the option for manually defining a custom time point of origin. This custom time point of origin must be lower than the first measured time point and to define it the numeric input must be used.</p></ol>
+
+	<p style="text-align: justify;"> <li>Therapy effect estimation:</li></p> <ol><p style="text-align: justify;">Two options are available to estimate the effect of therapy:
+	<li style="text-align: justify;">User-defined specific time point. The specific time point must be between two measured time points and will stay the same even if extra time points are estimated.</li>
+	<li style="text-align: justify;">Between two measured time points. The therapy time point will be defined as the middle time point between the two selected time points but if there is also extra time points interpolation the therapy time point will be recalculated to ensure equidistant development of the clones.</li>
+	</p></ol>
+
+	<p style="text-align: justify;">After all the desired options have been selected, the submit button must be clicked to run another validation. If there are no errors, a success message will show up and the seaObject table will be shown in the outputs section. </p>
+
+		<p style="text-align: justify;">There are two options for visualizing the clone's CCFs. The default option is the CCF_clone, meaning it includes the fraction specific of the clone plus the children's CCFs. The second option is the CCF_clone - sum(CCF_children), which substracts the children's CCF to the clone's CCF, therefore we see the fraction of cells corresponding only to that clone specifically.</p>
+
+	<br><br>
+	<p><img style="display: block; margin-left: auto; margin-right: auto;" src="seaObject.png" width="100%" height="100%" /></p>
+
+	<p style="text-align: justify;"> <i>Extra time points interpolation</i> is selected for a better visualization and the origin time point is calculated by default. Therapy was applied between the second and thrid time point, therefore <i>therapy effect estimation</i> is selected, and the option of estimation is between <i>two measured time points</i> (selecting the second and third one).
+The seaObject table shows the CCFs of each clone at each time point (estimated and measured) and on the last column the parental relations.
+</p>
+
+
+
+	<br><br>
+	<a id="plotting"><h3>3. Visualizing the clonal evolution</h3></a>
+	<p style="text-align: left;">On the left menu, inside the Plots item, we find three options for visualization: <i>shark, dolphin and plaice plots</i>. All plots can be downloaded as .png using the button on the top right corner of the plot. </p>
+
+	<br>
+	<a id="sharkDolphin"><h4>Shark and Dolphin plots </h4></a>
+    	<p style="text-align: left;">The shark and dolphin plots can be visualized inside the “Outputs -> Plots -> Shark & Dolphin plots” tab.</p>
+
+    	<p style="text-align: justify;"> <li>Shark plot:</li></p> <ol><p style="text-align: justify;">When <i>Show Shark plot</i> is selected, shark plot visualization options will appear. <i>Show legend</i> plots the color legend on the right side of the shark plot. A main title can be written in the input <i>Main</i> text box, and it will be automatically updated after any change.</p></ol>
+
+    	<p><img style="display: block; margin-left: auto; margin-right: auto;" src="shark.png" width="100%" height="100%" /></p>
+
+    	<p><i>Show legend</i> is selected and “Shark Plot Example data” was written in the <i>Main</i> text box. </p>
+    	<br>
+    	<ul>
+    	<p style="text-align: justify;"> <li>Extended Shark plot:</li></p> <ol><p style="text-align: justify;"><i>Extended shark plot</i> shows the CCF of each clone at each time point as point size. When it is selected, the basic shark plot and the extended part are linked, when hovering on a clone in the basic shark plot it will show the clone name and the clone's row on the extended side will be highlighted. When hovering over a point on the extended side, the CCF value will be shown, and the corresponding clone will be highlighted in both sides of the plot. </p></ol>
+
+    	<p><img style="display: block; margin-left: auto; margin-right: auto;" src="sharkExt.png" width="100%" height="100%" /></p>
+    	<p><i>Show legend</i> was selected, “Extended Shark Plot Example Data” was written in the <i>Main</i> text box <i>Extended shark plot</i> is selected and the Shown time points are both, measured and estimated</p></ul>
+
+
+    	<p style="text-align: justify;"> <li>Dolphin plot:</li></p> <ol><p style="text-align: justify;">When <i>Show Dolphin plot</i> is selected, dolphin plot visualization options will appear below.</p>
+    	<li><i>Show legend</i> will plot the color legend on the left side of the dolphin plot. </li>
+    	<li><i>Separate independent clones</i> will leave a blank space between different families of clones emerging from normal cells. </li>
+    	<li>A main title can be written in the input <i>Main</i> text box, and it will be automatically updated after any change.</li>
+    	<li>For <i>layout</i> center visualization shows the clonal evolution starting from the middle and expanding to both sides of the y axis. Bottom visualization shows the clonal evolution “laying” on the x axis, only expanding to the top. </li>
+    	<li>For <i>Dolphin plot shape</i>, spline shape is smoother and allows the user to define a <i>pad left</i> (how much to extend the start of the development of each clone). Polygon shape is edgy and uses only the x positions of the time points in the seaObject.</li>
+    	<li><i>Axis labels</i> shows a line on the y axis indicating the 100% of CCF. Also allows the user to define manual labels for the x and y axis.</li>
+    	<li><i>Clones border color</i> defines de color of the clones border from a wide palette of colors, including transparency properties. </li>
+    	<li><i>Vertical lines x position</i> allows the user to select where to plot vertical lines, by default only measured time points is selected, but estimated time points and custom positions are also an option. To define custom positions the user must define the x values where to plot the vertical lines separated by commas <i>(e.g 10,13,14)</i></li>
+    	<li><i>Vertical lines color</i> defines the color of the vertical lines from a wide palette of colors. </li>
+    	<li><i>Vertical lines labels</i> allow the user to select which labels to plot on top of the vertical lines. Vertical lines without labels can be plotted, but it is not allowed to give labels to just some lines. To plot the labels there must be as many as vertical lines. Same way as with the custom vertical lines, custom vertical lines labels must be defined with comma separated values <i>(e.g day10,day13,day14)</i></li>
+    	<li><i>Size of vertical lines labels</i> allows the user to change the vertical lines labels size from a range of numbers.</li>
+    	<li><i>Show symbol underneath</i> works the same way as vertical lines x position. It allows the user to select which positions to show a filled triangle underneath the dolphin plot. This option is mostly used to mark which of all the time points are the measured ones.</li>
+    	<br><br>
+
+    	<p><img style="display: block; margin-left: auto; margin-right: auto;" src="dolphin.png" width="100%" height="100%" /></p>
+
+    	<p style="text-align: justify;">To generate this plot show legend is activated. “Dolphin Plot Example Data” was written in the Main text box. Layout position is “center” and dolphin plot shape is “spline”.  The axis labels switch is activated, “Cancer cell fractions (CCFs)” was written in the y axis label text box and “time points” was written in the x axis label text box. Clone’s border and vertical lines colors are the default ones. Vertical lines and labels selected are only measured time points, and finally, for show symbol underneath only estimated time points is selected. </p></ol>
+
+    	<p style="text-align: justify;"> <li>Shark+dolphin plots:</li></p> <ol><p style="text-align: justify;">To plot shark and dolphin plots together both have to be activated and extended shark plot must be deactivated. Options and annotations of each plot work the same way as if they were plotted individually, except for <i>show legend</i> as if it is selected either in shark or dolphin plot options it will be plotted on the right side of the shark plot.  </p></ol>
+
+    	<p><img style="display: block; margin-left: auto; margin-right: auto;" src="sharkDolphin.png" width="100%" height="100%" /></p>
+
+
+	<a id="plaiceViz"><h4>Plaice plot</h4></a>
+	    <p style="text-align: justify;">Plaice plots can be visualized inside the “Outputs -> Plots -> Plaice plot” tab. When <i>Show Plaice plot</i> is selected in the left menu, plaice plot visualization options will appear below. The visualization options are the same as for Dolphin plot except for two: </p>
+	    <li><i>Axis labels</i> automatically shows the y axis labels and there is no option for custom labels. </li>
+	    <li><i>Mark biallelic events</i> is added: when switched on, a dropdown list for each clone will appear. For each clone the user must select which color to use to fill in the bottom half of the plot. </li>
+	    <ol>
+	        <li>To not paint the clone, select “Empty”. A not colored clone means there is at least one copy of a healthy allele.</li>
+	        <li>To paint the clone with another clone’s color, select the label of the clone which color to use. A clone (<i>e.g Clone 2</i>) colored with the color of another clone (<i>e.g Clone 1</i>) means a new variant (<i>in Clone 2</i>) is causing a biallelic event on the same gene that was affected by the clone which color you are using (<i>Clone 1</i>).</li>
+	        <li>To paint a clone with its own color, select the same clone’s label. A clone colored with its own color means it implies on itself a biallelic event, or that it affects the only available X- or Y- chromosome in male subjects.</li>
+	    </ol>
+
+	    <p><img style="display: block; margin-left: auto; margin-right: auto;" src="plaice.png" width="100%" height="100%" /></p>
+
+	    <p style="text-align: justify;">To generate this plot <i>show legend</i> is activated. “Plaice Plot Example Data” was written in the <i>Main</i> text box. The <i>shape</i> is “spline” and the <i>axis labels</i> switch is activated. <i>Vertical lines and labels</i> selected are measured time points and for show symbol underneath also only estimated time points is selected. Annotations were written as described in the following section. And finally, to show that the deletion on the chromosome 17 (in Clone C) affected the remaining healthy copy of TP53 (one copy was affected by a mutation in Clone A), Clone C, and its children (Clone D) are painted with Clone A color in the bottom half of the plot. To do this, “Clone A” was selected from the dropdown list of Clone C in the <i>Mark biallelic events</i> input. </p>
+    	<br><br>
+
+    <a id="annots"><h4>Annotations</h4></a>
+	    <p style="text-align: justify;">Annotations for each clone can be added on the dolphin and plaice plots. On the left menu, inside the annotations tab, if the <i>Add annotations</i> switch is turned on, a tab for each clone will appear. Inside each tab there is a text box where to write the clone’s annotation, a switch to select black or white color of the text and two sliders to select the x and y position interactively. The plot will be automatically updated after any change.  </p>
+	    <p><img style="display: block; margin-left: auto; margin-right: auto;" src="annotsPlaice.png" width="100%" height="100%" /></p>
+
+	    <p style="text-align: justify;">Using the same options as before for the plaice plot, by turning on the switch for annotations we can add text to the plot in order to add important comments about the clones. In this case TP53 and del17 were added to the corresponding clones where the variants took place. </p>
+
+<br><br><br>
+</body>
+</html>

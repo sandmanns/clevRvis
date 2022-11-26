@@ -1,0 +1,20 @@
+Package: clevRvis
+Type: Package
+Title: Visualization Techniques for Clonal Evolution
+Version: 0.99.0
+Authors@R: 
+	person("Sarah", "Sandmann", , "sarah.sandmann@uni-muenster.de", role = c("aut", "cre"))
+Description: clevRvis provides a set of visualization
+    techniques for clonal evolution. These include shark plots, dolphin
+	plots and plaice plots. Algorithms for time point interpolation 
+	as well as therapy effect estimation are provided. Phylogeny-aware
+	color coding is implemented.
+License: LGPL-3
+Encoding: UTF-8
+LazyData: false
+Requires: shiny, RColorBrewer, ggraph, igraph, ggiraph, cowplot, htmlwidgets, plotwidgets, readxl, dplyr, readr, purrr, tibble, patchwork, R.utils, shinyWidgets, colorspace, shinyhelper, shinycssloaders, ggnewscale, shinydashboard, DT, colourpicker, grDevices, methods, utils, stats, ggplot2
+Imports: shiny, RColorBrewer, ggraph, igraph, ggiraph, cowplot, htmlwidgets, plotwidgets, readxl, dplyr, readr, purrr, tibble, patchwork, R.utils, shinyWidgets, colorspace, shinyhelper, shinycssloaders, ggnewscale, shinydashboard, DT, colourpicker, grDevices, methods, utils, stats, ggplot2
+VignetteBuilder: knitr
+Suggests: knitr, rmarkdown
+biocViews: Software, ShinyApps, Visualization
+RoxygenNote: 7.2.1

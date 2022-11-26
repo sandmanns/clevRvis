@@ -1,0 +1,14 @@
+exploreTrees <- function(fracTable, timepoints){
+
+    #get matrix (TRUE/FALSE) indicating each clone's possible parents
+    possible <- .possibleParents(fracTable)
+
+    #when only one option for parent -> check where it sums up to >100
+    possibilities <- .checkPossibleParents(fracTable, possible)
+
+    #final validity check
+    #is number of options to consider <20,000?
+    solutions <- .getParentOptions(possibilities, fracTable, timepoints)
+
+    return(solutions)
+}
