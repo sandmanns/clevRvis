@@ -553,6 +553,10 @@ Optionally, as a final step, annotations can be added to the previously generate
 
 A detailed walk-through is provided in the 'Tutorial' panel within the clevRvis shiny-app.
 
+## Data
+
+To generate appropriate input for the analysis with clevRvis, called variants have to be clustered (ideally also considering copy-number variants) and phylogenetic trees reconstructed to determine parental information. According to our experience, algorithms for automatic clustering and tree reconstruction, considering bulk DNA-seq data, do not always generate valid results (see Sandmann et al. 2022 <https://cgp.iiarjournals.org/content/19/2/194.long>). Currently, we suggest manual analysis for both analysis steps (compare e.g. Reutter, Sandmann et al. 2021 <https://www.nature.com/articles/s41375-020-0862-5> or Sandmann, Behrens et al. 2022 <https://www.frontiersin.org/articles/10.3389/fonc.2022.888114/full>).
+
 # Session information
 
 ```{r session}
