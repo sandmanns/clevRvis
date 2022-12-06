@@ -15,6 +15,20 @@ methods::setClass("seaObject",
     )
 )
 
+methods::setMethod("show","seaObject",
+                    function(object)print(list(ytop = object@ytop,
+                                    ybtm = object@ybtm,
+                                    xpos = object@xpos,
+                                    col = object@col,
+                                    timepoints = object@timepoints,
+                                    fracTable = object@fracTable,
+                                    parents = object@parents,
+                                    nestLevels = object@nestLevels,
+                                    cloneFamily = object@cloneFamily,
+                                    cloneLabels = object@cloneLabels,
+                                    defaultLabels = object@defaultLabels,
+                                    originTimepoint = object@originTimepoint)))
+
 #' Initialize the seaObject class
 #'
 #' @return no return value
