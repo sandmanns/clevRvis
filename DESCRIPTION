@@ -1,7 +1,7 @@
 Package: clevRvis
 Type: Package
 Title: Visualization Techniques for Clonal Evolution
-Version: 0.99.0
+Version: 0.99.1
 Authors@R: 
 	person("Sarah", "Sandmann", , "sarah.sandmann@uni-muenster.de", role = c("aut", "cre"))
 Description: clevRvis provides a set of visualization
