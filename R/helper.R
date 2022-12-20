@@ -1373,7 +1373,7 @@ methods::setMethod("show","seaObject",
             show.legend = FALSE,
             color =    'white'
         ) +
-        theme_graph() + scale_y_reverse(expand = c(0.25, 0.25)) +
+        theme_void() + scale_y_reverse(expand = c(0.25, 0.25)) +
         coord_flip() +
         scale_x_reverse(expand = c(0.25, 0.25))
 

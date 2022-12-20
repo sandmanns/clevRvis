@@ -67,5 +67,5 @@ seaObject <- createSeaObject(fracTable = fracTable,
                             parents = parents,
                             timepoints = timepoints)
 
-extSharkPlot(seaObject, showLegend = T, main = 'Example Shark Plot')
+extSharkPlot(seaObject, showLegend = TRUE, main = 'Example Shark Plot')
 }

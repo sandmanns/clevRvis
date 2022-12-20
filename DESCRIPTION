@@ -1,9 +1,9 @@
 Package: clevRvis
 Type: Package
 Title: Visualization Techniques for Clonal Evolution
-Version: 0.99.1
+Version: 0.99.2
 Authors@R: 
-	person("Sarah", "Sandmann", , "sarah.sandmann@uni-muenster.de", role = c("aut", "cre"))
+	person("Sarah", "Sandmann", , "sarah.sandmann@uni-muenster.de", role = c("aut", "cre"),comment=c(ORCID="0000-0002-5011-0641"))
 Description: clevRvis provides a set of visualization
     techniques for clonal evolution. These include shark plots, dolphin
 	plots and plaice plots. Algorithms for time point interpolation 

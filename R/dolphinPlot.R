@@ -59,7 +59,7 @@ dolphinPlot <- function(seaObject, shape = 'spline', borderCol = NULL,
 
     dolphPlot <- dolphPlot +
         scale_fill_manual(values = seaObject@col, name = "Clone labels") +
-        theme_graph() + theme(legend.position = "left")
+        theme_void() + theme(legend.position = "left")
 
 
     if(!is.null(vlines)){

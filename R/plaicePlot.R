@@ -57,7 +57,7 @@ plaicePlot <- function(seaObject, shape = 'spline', borderCol = 'black',
         ) +
         scale_fill_manual(values = c(seaObject@col),
                                             name = "Clone labels") +
-        theme_graph() + theme(legend.position = "left")+
+        theme_void() + theme(legend.position = "left")+
         ##new scale for alleleaware coloring
         new_scale('fill') +
         geom_polygon_interactive(aes(fill = name, group = name,

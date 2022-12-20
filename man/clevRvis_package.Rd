@@ -10,8 +10,8 @@ clevRvis is a tool that allows you to visualize changes in the subclonal
 architecture of tumors. Simple tree visualization (shark plot) a more detailed
 visualization (dolphin plot) and an allele-aware visualization (plaice plot)
 are available.
-Moreover, this tool provides fully automatic algorithms for time points and
-therapy effect estimation in the presence of lacking input data.
+Moreover, this tool provides fully automatic algorithms for interpolating time 
+points and estimating therapy effect in the presence of lacking input data.
 }
 \details{
 The package contains a function performing the whole analysis using a shiny user
@@ -58,7 +58,7 @@ fracTable <- matrix(
                         50, 25, 15, 10, 40, 20, 15),
                     ncol = length(timepoints))
 
-#Generating a seaObject with timepoint estimation
+#Generating a seaObject with timepoint interpolation
 seaObject <- createSeaObject(fracTable, parents, timepoints)
 
 
@@ -92,16 +92,16 @@ plotWidget(seaObject, showLegend = TRUE, vlines = timepoints,
 annotsTable <- data.frame(x = c(24,55), y = c(-40,-5),
                         col = c('black', 'white'), lab = c('TP53', 'UBA1'))
 #png('plaicePlot.png',height = 800, width = 1750)
-plaicePlot(seaObject, showLegend = T,  vlines = timepoints,
-            vlab = timepoints, vlabSize = 4, ylab = T,
+plaicePlot(seaObject, showLegend = TRUE,  vlines = timepoints,
+            vlab = timepoints, vlabSize = 4, ylab = TRUE,
             separateIndependentClones = TRUE, clonesToFill = c(0,0,1,0,0,6,0),
-            annotations = annotsTable, interactivePlot = F)
+            annotations = annotsTable, interactivePlot = FALSE)
 #dev.off()
 
-#seaObject with enabled timepoint estimation and therapy effect estimation
+#seaObject with enabled timepoint interpolation and therapy effect estimation
 #between timepoint 50 and 100
 seaObject <- createSeaObject(fracTable, parents, timepoints,
-                            timepointEstimation = TRUE,
+                            timepointInterpolation = TRUE,
                             therapyEffect = c(50,100))
 
 #Default dolphin plot showing estimated therapy effect, with vertical
