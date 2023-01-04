@@ -2266,3 +2266,7 @@
     tryCatch(col2rgb(x), 
             error = function(e) NULL)
 }
+
+.onLoad <- function(...) {
+    shiny::addResourcePath("clevRvis", system.file("www", package="clevRvis"))
+}

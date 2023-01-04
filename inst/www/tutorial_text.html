@@ -142,11 +142,11 @@ prevalences (y axis), and the ratio of remaining healthy alleles (lower plaice).
 <p style="text-align: justify;"> <li>Explore alternative trees: </li></p> <ol><p style="text-align: justify;">In the inputs tab we find a switch to explore alternative trees. When switched on, a dropdown list will appear with the possible vectors for defining the parental relations. When "Explore alternative trees" is activated, the parental relations selected in the dropdown will be the ones used to generate the seaObject afterwards. Any other parental relations defined before (in the input table or interactively through the app) will be ignored. </p></ol>
 
 	<h4>Example:</h4>
-	<p><img style="display: block; margin-left: auto; margin-right: auto;" src="inputs.png" width="100%" height="100%" /></p>
+	<p><img style="display: block; margin-left: auto; margin-right: auto;" src="clevRvis/inputs.png" width="100%" height="100%" /></p>
 
 	<p style="text-align: middle;">The Input file contains a table with seven columns and six rows. The first row corresponds to the time points (<i>0,2,5,8,12</i>), the first column corresponds to the clone labels (<i>Clone A, Clone B, Clone C, Clone D, Clone E</i>) and the last column corresponds to the parental relations vector <i>(0,1,2,3,2)</i> therefore the file contains the CCFs of five clones on five time points. The evolution of the clones is branched as(<i>Clone C and Clone E</i>)  share the same parent (<i>Clone B</i>).</p>
 	<br><br>
-	<p><img style="display: block; margin-left: auto; margin-right: auto;" src="successInputs.png" width="100%" height="100%" /></p>
+	<p><img style="display: block; margin-left: auto; margin-right: auto;" src="clevRvis/successInputs.png" width="100%" height="100%" /></p>
 
 	<p style="text-align: justify;">After clicking submit inputs, the validation will run. Once the validation has run, a pop-up message will appear confirming the parental relations have been successfully defined or showing a message with the error that has been found.  If there is any error it must be fixed, and the validation must run again before going to the next step.</p>
 	<br><br>
@@ -165,7 +165,7 @@ prevalences (y axis), and the ratio of remaining healthy alleles (lower plaice).
 		<p style="text-align: justify;">There are two options for visualizing the clone's CCFs. The default option is the CCF_clone, meaning it includes the fraction specific of the clone plus the children's CCFs. The second option is the CCF_clone - sum(CCF_children), which substracts the children's CCF to the clone's CCF, therefore we see the fraction of cells corresponding only to that clone specifically.</p>
 
 	<br><br>
-	<p><img style="display: block; margin-left: auto; margin-right: auto;" src="seaObject.png" width="100%" height="100%" /></p>
+	<p><img style="display: block; margin-left: auto; margin-right: auto;" src="clevRvis/seaObject.png" width="100%" height="100%" /></p>
 
 	<p style="text-align: justify;"> <i>Extra time points interpolation</i> is selected for a better visualization and the origin time point is calculated by default. Therapy was applied between the second and thrid time point, therefore <i>therapy effect estimation</i> is selected, and the option of estimation is between <i>two measured time points</i> (selecting the second and third one).
 The seaObject table shows the CCFs of each clone at each time point (estimated and measured) and on the last column the parental relations.
@@ -183,14 +183,14 @@ The seaObject table shows the CCFs of each clone at each time point (estimated a
 
     	<p style="text-align: justify;"> <li>Shark plot:</li></p> <ol><p style="text-align: justify;">When <i>Show Shark plot</i> is selected, shark plot visualization options will appear. <i>Show legend</i> plots the color legend on the right side of the shark plot. A main title can be written in the input <i>Main</i> text box, and it will be automatically updated after any change.</p></ol>
 
-    	<p><img style="display: block; margin-left: auto; margin-right: auto;" src="shark.png" width="100%" height="100%" /></p>
+    	<p><img style="display: block; margin-left: auto; margin-right: auto;" src="clevRvis/shark.png" width="100%" height="100%" /></p>
 
     	<p><i>Show legend</i> is selected and “Shark Plot Example data” was written in the <i>Main</i> text box. </p>
     	<br>
     	<ul>
     	<p style="text-align: justify;"> <li>Extended Shark plot:</li></p> <ol><p style="text-align: justify;"><i>Extended shark plot</i> shows the CCF of each clone at each time point as point size. When it is selected, the basic shark plot and the extended part are linked, when hovering on a clone in the basic shark plot it will show the clone name and the clone's row on the extended side will be highlighted. When hovering over a point on the extended side, the CCF value will be shown, and the corresponding clone will be highlighted in both sides of the plot. </p></ol>
 
-    	<p><img style="display: block; margin-left: auto; margin-right: auto;" src="sharkExt.png" width="100%" height="100%" /></p>
+    	<p><img style="display: block; margin-left: auto; margin-right: auto;" src="clevRvis/sharkExt.png" width="100%" height="100%" /></p>
     	<p><i>Show legend</i> was selected, “Extended Shark Plot Example Data” was written in the <i>Main</i> text box <i>Extended shark plot</i> is selected and the Shown time points are both, measured and estimated</p></ul>
 
 
@@ -209,13 +209,13 @@ The seaObject table shows the CCFs of each clone at each time point (estimated a
     	<li><i>Show symbol underneath</i> works the same way as vertical lines x position. It allows the user to select which positions to show a filled triangle underneath the dolphin plot. This option is mostly used to mark which of all the time points are the measured ones.</li>
     	<br><br>
 
-    	<p><img style="display: block; margin-left: auto; margin-right: auto;" src="dolphin.png" width="100%" height="100%" /></p>
+    	<p><img style="display: block; margin-left: auto; margin-right: auto;" src="clevRvis/dolphin.png" width="100%" height="100%" /></p>
 
     	<p style="text-align: justify;">To generate this plot show legend is activated. “Dolphin Plot Example Data” was written in the Main text box. Layout position is “center” and dolphin plot shape is “spline”.  The axis labels switch is activated, “Cancer cell fractions (CCFs)” was written in the y axis label text box and “time points” was written in the x axis label text box. Clone’s border and vertical lines colors are the default ones. Vertical lines and labels selected are only measured time points, and finally, for show symbol underneath only estimated time points is selected. </p></ol>
 
     	<p style="text-align: justify;"> <li>Shark+dolphin plots:</li></p> <ol><p style="text-align: justify;">To plot shark and dolphin plots together both have to be activated and extended shark plot must be deactivated. Options and annotations of each plot work the same way as if they were plotted individually, except for <i>show legend</i> as if it is selected either in shark or dolphin plot options it will be plotted on the right side of the shark plot.  </p></ol>
 
-    	<p><img style="display: block; margin-left: auto; margin-right: auto;" src="sharkDolphin.png" width="100%" height="100%" /></p>
+    	<p><img style="display: block; margin-left: auto; margin-right: auto;" src="clevRvis/sharkDolphin.png" width="100%" height="100%" /></p>
 
 
 	<a id="plaiceViz"><h4>Plaice plot</h4></a>
@@ -228,14 +228,14 @@ The seaObject table shows the CCFs of each clone at each time point (estimated a
 	        <li>To paint a clone with its own color, select the same clone’s label. A clone colored with its own color means it implies on itself a biallelic event, or that it affects the only available X- or Y- chromosome in male subjects.</li>
 	    </ol>
 
-	    <p><img style="display: block; margin-left: auto; margin-right: auto;" src="plaice.png" width="100%" height="100%" /></p>
+	    <p><img style="display: block; margin-left: auto; margin-right: auto;" src="clevRvis/plaice.png" width="100%" height="100%" /></p>
 
 	    <p style="text-align: justify;">To generate this plot <i>show legend</i> is activated. “Plaice Plot Example Data” was written in the <i>Main</i> text box. The <i>shape</i> is “spline” and the <i>axis labels</i> switch is activated. <i>Vertical lines and labels</i> selected are measured time points and for show symbol underneath also only estimated time points is selected. Annotations were written as described in the following section. And finally, to show that the deletion on the chromosome 17 (in Clone C) affected the remaining healthy copy of TP53 (one copy was affected by a mutation in Clone A), Clone C, and its children (Clone D) are painted with Clone A color in the bottom half of the plot. To do this, “Clone A” was selected from the dropdown list of Clone C in the <i>Mark biallelic events</i> input. </p>
     	<br><br>
 
     <a id="annots"><h4>Annotations</h4></a>
 	    <p style="text-align: justify;">Annotations for each clone can be added on the dolphin and plaice plots. On the left menu, inside the annotations tab, if the <i>Add annotations</i> switch is turned on, a tab for each clone will appear. Inside each tab there is a text box where to write the clone’s annotation, a switch to select black or white color of the text and two sliders to select the x and y position interactively. The plot will be automatically updated after any change.  </p>
-	    <p><img style="display: block; margin-left: auto; margin-right: auto;" src="annotsPlaice.png" width="100%" height="100%" /></p>
+	    <p><img style="display: block; margin-left: auto; margin-right: auto;" src="clevRvis/annotsPlaice.png" width="100%" height="100%" /></p>
 
 	    <p style="text-align: justify;">Using the same options as before for the plaice plot, by turning on the switch for annotations we can add text to the plot in order to add important comments about the clones. In this case TP53 and del17 were added to the corresponding clones where the variants took place. </p>
 
