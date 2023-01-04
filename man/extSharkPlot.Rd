@@ -9,7 +9,12 @@ with nodes representing clones and edges indicating their evolutionary relations
 and additional visualization of CCFs.
 }
 \usage{
-extSharkPlot(seaObject, showLegend, main, timepoints, width, interactivePlot)
+extSharkPlot(seaObject, 
+            showLegend = FALSE, 
+            main = NULL, 
+            timepoints = NULL, 
+            width = 10, 
+            interactivePlot = TRUE)
 }
 \arguments{
 \item{seaObject}{
@@ -23,7 +28,8 @@ A string corresponding to the plot's main title (default: NULL).
 }
 \item{timepoints}{
 By default, all time points available in the seaObject are visualized.
-Optionally, a selected set of available time points can be chosen.
+Optionally, a selected set of available time points can be chosen
+(default: NULL).
 }
 \item{width}{
 An integer value indicating the width of the widget plot (default: 10).

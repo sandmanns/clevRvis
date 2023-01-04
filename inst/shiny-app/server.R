@@ -1,7 +1,13 @@
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
-
+    vlines <- NULL
+    vlabs <- NULL
+    symbs <- NULL
+    xlab <- NULL
+    ylab <- NULL
+    annotsTbl <- NULL
+    
     ##helpers
     observe_helpers(session = session)
 
@@ -727,7 +733,7 @@ shinyServer(function(input, output, session) {
         } else {
           suppressWarnings({
             try(
-              plotWidget(seaObject, dolphin = input$dolphin,
+              combinedPlot(seaObject, dolphin = input$dolphin,
                          shark = input$shark, vlines = vlines,
                          mainShk = input$mainShk, showLegend = legend,
                          shape = input$shape, borderCol = input$borderCol,

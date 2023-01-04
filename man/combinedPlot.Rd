@@ -1,49 +1,55 @@
-\name{dolphinPlot}
-\alias{dolphinPlot}
+\name{combinedPlot}
+\alias{combinedPlot}
 \title{
-Generate a detailed visualization of clonal evolution
+Generate a combined basic graph and detailed visualization of clonal evolution
 }
 \description{
-Dolphin plots provide a detailed visualization of clonal evolution. Plots show
-the development of all clones over time (x axis) and their clonal prevalences
-(y axis).
+Given a sea object containing layout information, a shark and dolphin plot can
+be plotted together - linked and interactive.
 }
 \usage{
-dolphinPlot(seaObject, 
+combinedPlot(seaObject, 
+            shark = TRUE, 
+            dolphin = TRUE, 
             shape = "spline", 
             borderCol = NULL, 
-            pos = "center", 
             vlines = NULL, 
             vlineCol = "#6E6E66", 
-            vlab = NULL, 
-            vlabSize = 3,
+            vlab = NULL,
+            vlabSize = 3, 
+            pos = "center", 
             separateIndependentClones = FALSE, 
-            showLegend = FALSE, 
-            markMeasuredTimepoints = NULL,
-            main = NULL, 
-            mainPos = "middle", 
-            mainSize = 5, 
+            showLegend = FALSE,
+            markMeasuredTimepoints = NULL, 
+            downloadWidget = NULL, 
+            mainDph = NULL, 
+            mainPosDph = "middle",
+            mainSizeDph = 5, 
+            mainShk = NULL, 
             xlab = NULL, 
             ylab = NULL, 
             pad.left = 0.005, 
-            annotations = NULL,
-            annotSize = 3)
+            annotations = NULL, 
+            width = 12,
+            height = 9)
 }
 \arguments{
 \item{seaObject}{
 A seaObject.
 }
+\item{shark}{
+A boolean defining whether or not to draw a shark plot (default: TRUE).
+}
+\item{dolphin}{
+A boolean defining whether or not to draw a dolphin plot (default: TRUE).
+}
 \item{shape}{
 The type of shape to construct the plot out of. The options are "spline" and
-"polygon" (default: "spline").
+"polygon" (default: "spline"").
 }
 \item{borderCol}{
 A color for the border line. If "NULL" then no border will be drawn (default:
 NULL).
-}
-\item{pos}{
-Plotting position of the clones. Options are "center" or "bottom" (default:
-"center").
 }
 \item{vlines}{
 A vector of positions at which to draw vertical lines (default: NULL).
@@ -58,6 +64,10 @@ NULL).
 \item{vlabSize}{
 An integer value for the vertical labels size (default: 3).
 }
+\item{pos}{
+Plotting position of the clones. Options are "center", "bottom" or "top"
+(default: "center").
+}
 \item{separateIndependentClones}{
 Boolean defining whether independently-arising clones (with parent 0) should be
 separated by blank space in the plot (default: FALSE).
@@ -70,15 +80,21 @@ A boolean indicating whether to show a legend at the left side of the plot
 A vector of x positions at which to draw triangles on the bottom of the plot
 (default: NULL).
 }
-\item{main}{
-A string corresponding to the plot's main title (default: NULL).
+\item{downloadWidget}{
+File to safe HTML to (default: NULL).
 }
-\item{mainPos}{
-A string defining the title's position. Options are 'left', 'middle' or 'right',
-always above the plot (default: "middle").
+\item{mainDph}{
+A string corresponding to the dolphin plot's main title (default: NULL).
 }
-\item{mainSize}{
-An integer value defining the size of the title (default: 5).
+\item{mainPosDph}{
+A string defining the dolphin plot's title position. Options are 'left',
+'middle' or 'right', always above the plot (default: "middle").
+}
+\item{mainSizeDph}{
+An integer value defining the size of the dolphin plot's title (default: 5).
+}
+\item{mainShk}{
+A string corresponding to the shark plot's main title (default: NULL).
 }
 \item{xlab}{
 A string defining the label of the x axis (default: NULL).
@@ -95,24 +111,21 @@ of the total plot width (default: 0.005).
 A data.frame with: columns "x" (x position), "y" (y position), "lab" (annotation
 text) and "col" (color of the text either black or white) (default: NULL).
 }
-\item{annotSize}{
-An integer value defining the size of the annotations (default: 3).
+\item{width}{
+An integer value indicating the with of the output widget (default: 12).
 }
-
+\item{height}{
+An integer value indicating the height of the output widget (default: 9).
+}
 }
 \details{
-Dolphin plots displays detailed information on clonal evolution, showing the
-development of all clones over time (x axis) and their clonal prevalence
-(y axis). Information on phylogeny, CCFs and time course characterizing a clonal
-evolution are jointly visualized in this single plot.
+Dolphin plots may be chosen to be plotted along with basic shark plots (for
+details see \code{\link{dolphinPlot}} and \code{\link{sharkPlot}}). Both plots
+are internally connected. By hovering on one of the clones, it is automatically
+highlighted in both, shark and dolphin plot.
 
-Several basic options for customizing dolphin plots are available, e.g.
-switching between spline and polygon shape, bottom or central visualization,
-annotations, separating independent clones, adding vertical lines and labels,
-changing border and vertical lines colors, etc.
-
-Dolphin plots may be chosen to be plotted along with basic shark plots (see
-\code{\link{combinedPlot}}).
+Important note: extended shark plots and dolphin plots can NOT be visualized
+together.
 }
 \value{
 None
@@ -135,5 +148,5 @@ seaObject <- createSeaObject(fracTable = fracTable,
                             timepoints = timepoints,
                             timepointInterpolation = TRUE)
 
-dolphinPlot(seaObject, main = 'Example Dolphin Plot', pos = 'center')
+combinedPlot(seaObject, borderCol = 'white', showLegend = TRUE)
 }

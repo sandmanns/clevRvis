@@ -9,8 +9,14 @@ of any available plot. When generating the seaObject, extra time points may be
 interpolated, therapy effect may be estimated.
 }
 \usage{
-createSeaObject(fracTable, parents, timepoints, col, cloneLabels,
-                originTimepoint, timepointInterpolation, therapyEffect)
+createSeaObject(fracTable, 
+                parents, 
+                timepoints, 
+                col = NULL, 
+                cloneLabels = NULL,
+                originTimepoint = NULL, 
+                timepointInterpolation = TRUE, 
+                therapyEffect = NULL)
 }
 \arguments{
 \item{fracTable}{
@@ -41,7 +47,7 @@ points and before the first measure time point to improve the visualization
 }
 \item{therapyEffect}{
 A single numeric value indicating the time point when to estimate the effect
-of therapy or a numerc vector containing two consecutive measured time points,
+of therapy or a numeric vector containing two consecutive measured time points,
 therapy effect time point will be in the middle (default: NULL).
 }
 }

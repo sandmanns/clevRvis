@@ -30,7 +30,7 @@ Cell Fractions (CCFs) as point size for each clone at each selected time point.
 4) \code{dolphinPlot}: detailed visualization (dolphin plot) of clonal evolution
 showing the development of all clones over time and their clonal prevalences.
 
-5) \code{plotWidget}: interactive linked visualization of shark and dolphin plot
+5) \code{combinedPlot}: interactive linked visualization of shark and dolphin plot
 together.
 
 6) \code{plaicePlot}: detailed visualization on the allelic level (plaice plot)
@@ -47,7 +47,7 @@ Sarah Sandmann <sarah.sandmann@uni-muenster.de>
 \seealso{
 \code{\link{clevRvisShiny}}, \code{\link{createSeaObject}},
 \code{\link{sharkPlot}}, \code{\link{extSharkPlot}}, \code{\link{dolphinPlot}},
-\code{\link{plotWidget}}, \code{\link{plaicePlot}}, \code{\link{exploreTrees}}
+\code{\link{combinedPlot}}, \code{\link{plaicePlot}}, \code{\link{exploreTrees}}
 }
 \examples{
 timepoints <- c(0,50,100)
@@ -84,7 +84,7 @@ dolphinPlot(seaObject, showLegend = TRUE, vlines = slot(seaObject,"timepoints"),
 #dev.off()
 
 #Basic shark plot linked to dolphin plot
-plotWidget(seaObject, showLegend = TRUE, vlines = timepoints,
+combinedPlot(seaObject, showLegend = TRUE, vlines = timepoints,
             vlab = timepoints, vlabSize = 2, ylab = 'Cancer cell fraction',
             separateIndependentClones = TRUE)
 

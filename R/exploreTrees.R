@@ -1,5 +1,11 @@
 exploreTrees <- function(fracTable, timepoints){
 
+    if(!is.matrix(fracTable) || !is.numeric(fracTable)){
+        stop("No valid input for fracTable provided.")
+    }
+    if(!is.vector(timepoints) || !is.numeric(timepoints)){
+        stop("No valid input for timepoints provided.")
+    }
     #get matrix (TRUE/FALSE) indicating each clone's possible parents
     possible <- .possibleParents(fracTable)
 

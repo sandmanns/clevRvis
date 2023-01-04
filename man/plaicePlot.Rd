@@ -9,10 +9,26 @@ show the development of all clones over time (x axis) and their clonal
 prevalences (y axis), and the ratio of remaining healthy alleles (lower plaice).
 }
 \usage{
-plaicePlot(seaObject, shape, borderCol, vlines, vlineCol, vlab, vlabSize,
-            separateIndependentClones, clonesToFill, showLegend,
-            markMeasuredTimepoints, main, mainPos, mainSize, xlab, ylab,
-            pad.left, annotations, annotationsSize, interactivePlot)
+plaicePlot(seaObject, 
+            shape = "spline", 
+            borderCol = "black", 
+            vlines = NULL, 
+            vlineCol = "#6E6E66", 
+            vlab = NULL, 
+            vlabSize = 3,
+            separateIndependentClones = FALSE, 
+            clonesToFill = NULL, 
+            showLegend = FALSE,
+            markMeasuredTimepoints = NULL, 
+            main = NULL, 
+            mainPos = "middle", 
+            mainSize = 5, 
+            xlab = NULL, 
+            ylab = FALSE,
+            pad.left = 0.005, 
+            annotations = NULL, 
+            annotationsSize = 3, 
+            interactivePlot = TRUE)
 }
 \arguments{
 \item{seaObject}{

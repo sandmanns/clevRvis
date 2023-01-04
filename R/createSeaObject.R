@@ -1,10 +1,34 @@
-createSeaObject <- function(fracTable, parents, timepoints = NULL,
+createSeaObject <- function(fracTable, parents, timepoints,
                             col = NULL, cloneLabels = NULL,
                             originTimepoint = NULL,
                             timepointInterpolation = TRUE,
                             therapyEffect = NULL) {
 
-
+    if(!is.matrix(fracTable) || !is.numeric(fracTable)){
+        stop("No valid input for fracTable provided.")
+    }
+    if(!is.vector(parents) || !is.numeric(parents)){
+        stop("No valid input for parents provided.")
+    }
+    if(!is.vector(timepoints) || !is.numeric(timepoints)){
+        stop("No valid input for timepoints provided.")
+    }
+    if(!is.null(col) && is.null(.isColor(col))){
+        stop("No valid input for col provided.")
+    }
+    if(!is.null(cloneLabels) && !is.character(cloneLabels)){
+        stop("No valid input for cloneLabels provided.")
+    }
+    if(!is.null(originTimepoint) && !is.numeric(originTimepoint)){
+        stop("No valid input for originTimepoint provided.")
+    }
+    if(timepointInterpolation != TRUE && timepointInterpolation != FALSE){
+        stop("No valid input for timepointInterpolation provided.")
+    }
+    if(!is.null(therapyEffect) && !is.numeric(therapyEffect)){
+        stop("No valid input for therapyEffect provided.")
+    }
+    
     # nest levels
     nestLevels <- .getAllNestLevels(parents)
 

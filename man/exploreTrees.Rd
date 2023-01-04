@@ -9,7 +9,8 @@ relations. Taking information on the CCFs and available time points as input,
 all possible parental relations are investigated and checked for validity.
 }
 \usage{
-exploreTrees(fracTable, timepoints)
+exploreTrees(fracTable, 
+            timepoints)
 }
 \arguments{
 \item{fracTable}{

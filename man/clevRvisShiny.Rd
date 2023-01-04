@@ -31,6 +31,6 @@ Sarah Sandmann <sarah.sandmann@uni-muenster.de>
 
 
 \examples{
-\donttest{
-clevRvisShiny()
+if(interactive()){
+    clevRvisShiny()
 }}

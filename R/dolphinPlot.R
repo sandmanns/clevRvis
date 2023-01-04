@@ -6,6 +6,55 @@ dolphinPlot <- function(seaObject, shape = 'spline', borderCol = NULL,
                         main = NULL, mainPos = 'middle', mainSize = 5,
                         xlab = NULL, ylab = NULL, pad.left = 0.005,
                         annotations = NULL, annotSize = 3){
+    if(is(seaObject, "seaObject") == FALSE){
+        stop('No seaObject provided as input.')
+    }
+    if(!is.null(borderCol) && is.null(.isColor(borderCol))){
+        stop("No valid input for borderCol provided.")
+    }
+    if(!is.null(vlines) && !is.numeric(vlines)){
+        stop("No valid input for vlines provided.")
+    }
+    if(is.null(.isColor(vlineCol))){
+        stop("No valid input for vlineCol provided.")
+    }
+    if(!is.null(vlab) && !is.character(vlab) && !is.numeric(vlab)){
+        stop("No valid input for vlab provided.")
+    }
+    if(!is.numeric(vlabSize)){
+        stop("No valid input for vlabSize provided.")
+    }
+    if(separateIndependentClones != TRUE && separateIndependentClones != FALSE){
+        stop("No valid input for separateIndependentClones provided.")
+    }
+    if(showLegend != TRUE && showLegend != FALSE){
+        stop("No valid input for showLegend provided.")
+    }
+    if(!is.null(markMeasuredTimepoints) && !is.numeric(markMeasuredTimepoints)){
+        stop("No valid input for markMeasuredTimepoints provided.")
+    }
+    if(!is.null(main) && !is.character(main)){
+        stop("No valid input for main provided.")
+    }
+    if(!is.numeric(mainSize)){
+        stop("No valid input for mainSize provided.")
+    }
+    if(!is.null(xlab) && !is.character(xlab)){
+        stop("No valid input for xlab provided.")
+    }
+    if(!is.null(ylab) && !is.character(ylab)){
+        stop("No valid input for ylab provided.")
+    }
+    if(!is.null(pad.left) && !is.numeric(pad.left)){
+        stop("No valid input for pad.left provided.")
+    }
+    if(!is.null(annotations) && !is.data.frame(annotations)){
+        stop("No valid input for annotations provided.")
+    }
+    if(!is.numeric(annotSize)){
+        stop("No valid input for annotSize provided.")
+    }
+    
     x<-NULL
     y<-NULL
     name<-NULL

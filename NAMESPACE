@@ -3,37 +3,57 @@ export(createSeaObject)
 export(dolphinPlot)
 export(extSharkPlot)
 export(plaicePlot)
-export(plotWidget)
+export(combinedPlot)
 export(sharkPlot)
 export(exploreTrees)
 
+exportClasses(seaObject)
+exportMethods(
+    show,
+    ytop, "ytop<-",
+    ybtm, "ybtm<-",
+    xpos, "xpos<-",
+    col, "col<-",
+    timepoints, "timepoints<-",
+    fracTable, "fracTable<-",
+    parents, "parents<-",
+    nestLevels, "nestLevels<-",
+    cloneFamily, "cloneFamily<-",
+    cloneLabels, "cloneLabels<-",
+    defaultLabels, "defaultLabels<-",
+    originTimepoint, "originTimepoint<-"
+)
+
+
 import('shiny',except=c(validate,setProgress,dataTableOutput,renderDataTable,
                         runExample))
-import('RColorBrewer')
-import('ggraph')
-import('igraph',except=c(union, as_data_frame,groups,compose,simplify))
-import('ggiraph') 
-import('cowplot',except=c(align_plots))
-import('htmlwidgets')
-import('plotwidgets')
-import('readxl')
-import('dplyr')
-import('readr')
-import('purrr')
-import('tibble')
-import('patchwork')
-import('R.utils')
-import('shinyWidgets')
-import('colorspace')
-import('shinyhelper')
-import('shinycssloaders')
-import('ggnewscale')
 import('shinydashboard')
-import('DT')
-import('colourpicker')
-importFrom("grDevices", "colorRampPalette")
-importFrom("methods", "new", "representation")
+import('patchwork')
+import('ggiraph') 
+import('shinyWidgets')
+
+importFrom('ggraph', "ggraph", "geom_edge_elbow")
+importFrom('igraph',"graph_from_data_frame")
+importFrom('cowplot',"plot_grid")
+importFrom('htmlwidgets', "saveWidget")
+importFrom('readxl', "read_excel")
+importFrom('dplyr', "select", "filter", "as_data_frame")
+importFrom('magrittr', "%>%")
+importFrom('readr', "parse_number", "read_csv")
+importFrom('purrr', "detect_index", "pluck")
+importFrom('tibble',"add_column", "add_row")
+importFrom('R.utils', "insert")
+importFrom('colorspace', "rainbow_hcl", "darken")
+importFrom('shinyhelper', 'helper', "observe_helpers")
+importFrom('shinycssloaders', "withSpinner")
+importFrom('ggnewscale', "new_scale")
+importFrom('DT', "dataTableOutput", "datatable", "renderDataTable")
+importFrom('colourpicker', "colourInput")
+importFrom("grDevices", "colorRampPalette", "col2rgb")
+importFrom("methods", "new", "representation", "setMethod", "setGeneric", 
+            "is", "setClass")
 importFrom("stats", "spline")
+importFrom("tools", "file_ext")
 importFrom("utils", "tail")
 importFrom("ggplot2", "geom_point", "aes", "scale_y_reverse", 
             "scale_x_reverse", "coord_flip")
@@ -42,4 +62,4 @@ importFrom("ggplot2", "ggplot", "scale_fill_manual", "theme", "geom_segment",
 importFrom("ggplot2", "expand_limits", "guides", "scale_color_discrete", 
             "scale_color_manual", "scale_size_area")
 importFrom("ggplot2", "theme_void", "guide_legend", "geom_hline", 
-            "scale_colour_manual")
+            "scale_colour_manual", ".data")

@@ -1,58 +1,3 @@
-methods::setClass("seaObject",
-    representation(
-        ytop = "list",
-        ybtm = "list",
-        xpos = "list",
-        col = "character",
-        timepoints = "numeric",
-        fracTable = "matrix",
-        parents = "numeric",
-        nestLevels = "numeric",
-        cloneFamily = "numeric",
-        cloneLabels = "character",
-        defaultLabels = "logical",
-        originTimepoint = "numeric"
-    )
-)
-
-methods::setMethod("show","seaObject",
-                    function(object)print(list(ytop = object@ytop,
-                                    ybtm = object@ybtm,
-                                    xpos = object@xpos,
-                                    col = object@col,
-                                    timepoints = object@timepoints,
-                                    fracTable = object@fracTable,
-                                    parents = object@parents,
-                                    nestLevels = object@nestLevels,
-                                    cloneFamily = object@cloneFamily,
-                                    cloneLabels = object@cloneLabels,
-                                    defaultLabels = object@defaultLabels,
-                                    originTimepoint = object@originTimepoint)))
-
-#' Initialize the seaObject class
-#'
-#' @return no return value
-#'
-#.initSeaObjectClass <- function() {
-#    methods::setClass(
-#        "seaObject",
-#        representation(
-#            ytop = "list",
-#            ybtm = "list",
-#            xpos = "list",
-#            col = "character",
-#            timepoints = "numeric",
-#            fracTable = "matrix",
-#            parents = "numeric",
-#            nestLevels = "numeric",
-#            cloneFamily = "numeric",
-#            cloneLabels = "character",
-#            defaultLabels = "logical",
-#            originTimepoint = "numeric"
-#        )
-#    )
-#}
-
 #' Validate some key assumptions about the seaObject's data
 #'
 #' @param fracTable A numeric matrix containing tumor fraction estimates for
@@ -1369,7 +1314,7 @@ methods::setMethod("show","seaObject",
                                         strength = 0.8) +
         geom_point(
             size = 8,
-            mapping = aes(x = x, y = y),
+            mapping = aes(x = .data$x, y = .data$y),
             show.legend = FALSE,
             color =    'white'
         ) +
@@ -2315,4 +2260,9 @@ methods::setMethod("show","seaObject",
         }
     }
     return(btmCloneColors)
+}
+
+.isColor <- function(x) {
+    tryCatch(col2rgb(x), 
+            error = function(e) NULL)
 }

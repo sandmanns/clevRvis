@@ -8,7 +8,9 @@ A shark plot shows the basic graph visualization of clonal evolution with nodes
 representing clones and edges indicating their evolutionary relations.
 }
 \usage{
-sharkPlot(seaObject, showLegend, main)
+sharkPlot(seaObject, 
+            showLegend = FALSE, 
+            main = NULL)
 }
 \arguments{
 \item{seaObject}{

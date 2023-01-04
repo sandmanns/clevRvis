@@ -21,7 +21,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introduction
 
-clevRvis provides an extensive set of visualization techniques for clonal evolution. Three types of plots are available: 1) shark plots (basic trees, showing the phylogeny and optionally the cancer cell fraction CCF); 2) dolphin plots (advanced visualization, showing the phylogeny and the development of CCFs over time); 3) plaice plots (novel visualization, shwoing the phylogeny, the development of CCFs and the development of remaining healthy alleles, influenced by bi-allelic events, over time). Moreover, the tool provides algorithms for fully automatic interpolation of time points and estimation of therapy effect to approximate a tumor's development in the presence of few measured time points, as well as exploring alternative trees.
+Clonal evolution describes the development of a tumor over time, considering the principle of 'survival of the fittest' on a cellular level. The development of cellular heterogeneity is of special interest with respect to cancer as it can be associated with therapy response, prognosis and survival of a patient. For example, relapse may be caused by an aggressive subclone. 
+
+The study of clonal evolution is based on mutations detected in a tumor sample. Ideally, data on mutations being present or absent is available for more than one time point in the cause of a patient's disease. In a first analysis step, mutations have to be clustered to define clones. Every clone is commonly characterized by the cancer cell fraction (CCF) for every time point. The clones can, subsequently, be arranged as phylogenetic trees to represent the tumor's evolution. A final, but essential step in the analysis of clonal evolution, significantly contributing to interpretation of the results, is its visualization. 
+
+clevRvis provides an extensive set of visualization techniques for clonal evolution. Three types of plots are available: 1) shark plots (basic trees, showing the phylogeny and optionally the cancer cell fraction CCF); 2) dolphin plots (advanced visualization, showing the phylogeny and the development of CCFs over time); 3) plaice plots (novel visualization, showing the phylogeny, the development of CCFs and the development of remaining healthy alleles, influenced by bi-allelic events, over time). Moreover, the tool provides algorithms for fully automatic interpolation of time points and estimation of therapy effect to approximate a tumor's development in the presence of few measured time points, as well as exploring alternative trees.
+
+clevRvis provides all common features for visualization also available in established R-packages like 'timescape'. These features have been revised from scratch and optimized (e.g. supporting branched independent evolution, supporting visualization of a single clone, extensive validity check of the input, switch between bottom- and centered-layout). Furthermore, a wide set of additional features is available (e.g. automatic phylogeny-aware color-coding, algorithms for time point interpolation and therapy effect estimation, graphical user interface).
 
 ## Requirements
 
@@ -55,7 +61,7 @@ clevRvis is available as a shiny GUI. You can run the shiny version either by RS
 
 4.  `dolphinPlot()`: Generate a detailed visualization of clonal evolution
 
-5.  `plotWidget()`: Generate a combined basic graph and detailed visualization of clonal evolution
+5.  `combinedPlot()`: Generate a combined basic graph and detailed visualization of clonal evolution
 
 6.  `plaicePlot()`: Generate an allele-aware visualization of clonal evolution
 
@@ -134,6 +140,13 @@ seaObject_te <- createSeaObject(fracTable, parents, timepoints,
                             therapyEffect = c(50,100))
 ```
 
+```{r individualColors}
+##seaObject with manually defined colors
+seaObject_col <- createSeaObject(fracTable, parents, timepoints,
+                                timepointInterpolation = TRUE,
+                                col = rainbow(7))
+```
+
 ## sharkPlot()
 
 A shark plot shows the basic graph visualization of clonal evolution with nodes representing clones and edges indicating their evolutionary relations.
@@ -157,6 +170,11 @@ Shark plots also offer an extension to visualize the changes in CCF along time f
 ```{r shark}
 #Basic shark plot showing legend and title
 sharkPlot(seaObject_tp, showLegend = TRUE, main = 'Example Shark plot')
+```
+
+```{r sharkIndivColors}
+#Basic shark plot showing legend and title with manually defined color coding
+sharkPlot(seaObject_col, showLegend = TRUE, main = 'Example Shark plot')
 ```
 
 ## extSharkPlot()
@@ -230,7 +248,7 @@ Dolphin plots displays detailed information on clonal evolution, showing the dev
 
 Several basic options for customizing dolphin plots are available, e.g. switching between spline and polygon shape, bottom or central visualization, annotations, separating independent clones, adding vertical lines and labels, changing border and vertical lines colors, etc.
 
-Dolphin plots may be chosen to be plotted along with basic shark plots (see `plotWidget()`).
+Dolphin plots may be chosen to be plotted along with basic shark plots (see `combinedPlot()`).
 
 ### Examples
 
@@ -238,8 +256,8 @@ Dolphin plots may be chosen to be plotted along with basic shark plots (see `plo
 ##Dolphin plot, with vertical lines showing all time points, custom y axis 
 ##label and triangles indicating the measured time points
 dolphinPlot(seaObject_tp, showLegend = TRUE, 
-            vlines = slot(seaObject,"timepoints"), 
-            vlab = slot(seaObject,"timepoints"), vlabSize = 2, 
+            vlines = timepoints(seaObject), 
+            vlab = timepoints(seaObject), vlabSize = 2, 
             ylab = 'Cancer cell fractions (CCFs)',
             markMeasuredTimepoints = timepoints)
 ```
@@ -284,13 +302,13 @@ dolphinPlot(seaObject_te, showLegend = TRUE,
             markMeasuredTimepoints = timepoints)
 ```
 
-## plotWidget()
+## combinedPlot()
 
 Given a sea object containing layout information, a shark and dolphin plot can be plotted together - linked and interactive.
 
 ### Usage
 
-    plotWidget(seaObject_tp, shark, dolphin, shape, borderCol, vlines, 
+    combinedPlot(seaObject_tp, shark, dolphin, shape, borderCol, vlines, 
                 vlineCol, vlab, vlabSize, pos, separateIndependentClones,
                 showLegend, markMeasuredTimepoints, downloadWidget, 
                 mainDph, mainPosDph, mainSizeDph, mainShk, xlab, ylab, 
@@ -331,7 +349,7 @@ Important note: extended shark plots and dolphin plots can NOT be visualized tog
 
 ```{r SharkDolph}
 ##Basic shark plot linked to dolphin plot
-plotWidget(seaObject_tp, showLegend = TRUE, vlines = timepoints,
+combinedPlot(seaObject_tp, showLegend = TRUE, vlines = timepoints,
             vlab = timepoints, vlabSize = 2, ylab = 'Cancer cell fraction',
             separateIndependentClones = TRUE)
 ```
@@ -458,13 +476,13 @@ clevRvis provides an additional shiny GUI to perform all analyses interactively.
 
 ### Examples
 
-clevRvis supports two input files - with and without information on parental relations.
+clevRvis supports two input file types - with and without information on parental relations.
 
 #### Input - without parental relations
 
 A file containing clones in the first column and information on the clones' cancer cell fractions (CCFs) for each time point in the subsequent columns may be uploaded. Subsequently, the parental relations are defined interactively in the shiny-app. Two exemplary input files, containing the CCFs for simulated clonal evolution, are available with the package.
 
-For Example1.xlsx the suggested parental relations, that have to be defined manually, are:
+Exemplary file Example1.xlsx is provided along with the package in 'inst/extdata'. The file contains an easy, manually generated example of clonal evolution (4 clones, 2 time points). The suggested parental relations, that have to be defined manually for the analysis with clevRvis, are:
 
 ```{r example1,echo=FALSE}
 library(knitr)
@@ -472,7 +490,7 @@ kable(data.frame(Clone=c("clone A","clone B","clone C","clone D"),
                 Parent=c("normal cell","clone A","clone B","clone C")))
 ```
 
-For Example2.xlsx the suggested parental relations are:
+A second exemplary file Example2.xlsx is also provided along with the package in 'inst/extdata'. The file contains a more complex, manually generated example of clonal evolution (5 clones, 5 time points). For Example2.xlsx the suggested parental relations are:
 
 ```{r example2,echo=FALSE}
 library(knitr)
@@ -512,7 +530,7 @@ kable(data.frame(Clone=c("clone A","clone B","clone C","clone D","clone E",
 
 #### Input - with parental relations
 
-A file containing clones in the first column, information on the clones' CCFs for each time point in the subsequent columns and information on the parental relations in a column 'parent' may be uploaded. The position of the 'parent'-column in the input file is not restricted. Two exemplary input files - Example1_withParents.xlsx and Example2_withParents.xlsx -, containing the CCFs for simulated clonal evolution and parental relations in an additional column, are available with the package.
+A file containing clones in the first column, information on the clones' CCFs for each time point in the subsequent columns and information on the parental relations in a column 'parent' may be uploaded. The position of the 'parent'-column in the input file is not restricted. Two exemplary input files - Example1_withParents.xlsx and Example2_withParents.xlsx -, containing the CCFs for simulated clonal evolution and parental relations in an additional column, are available with the package in 'inst/extdata'. The files correspond to files Example1.xlsx and Example2.xlsx, just containing the additional column 'parent'.
 
 Alternatively, previously defined vectors `timepoints` and `parents` and matrix `fracTable` can be easily used to generate adequate input data for use of the clevRvis shiny-app.
 

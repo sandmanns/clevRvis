@@ -1,4 +1,15 @@
 sharkPlot <- function(seaObject, showLegend = FALSE, main = NULL){
+    
+    if(is(seaObject, "seaObject") == FALSE){
+        stop('No seaObject provided as input.')
+    }
+    if(showLegend != TRUE && showLegend != FALSE){
+        stop("No valid input for showLegend provided.")
+    }
+    if(!is.null(main) && !is.character(main)){
+        stop("No valid input for main provided.")
+    }
+    
     name<-NULL
     lab<-NULL
 

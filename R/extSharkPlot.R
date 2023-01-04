@@ -1,5 +1,25 @@
 extSharkPlot <- function(seaObject, showLegend = FALSE, main = NULL,
                         timepoints = NULL, width = 10, interactivePlot = TRUE){
+    
+    if(is(seaObject, "seaObject") == FALSE){
+        stop('No seaObject provided as input.')
+    }
+    if(showLegend != TRUE && showLegend != FALSE){
+        stop("No valid input for showLegend provided.")
+    }
+    if(!is.null(main) && !is.character(main)){
+        stop("No valid input for main provided.")
+    }
+    if(!is.null(timepoints) && !is.numeric(timepoints)){
+        stop("No valid input for timepoints provided.")
+    }
+    if(!is.numeric(width) || width <= 0){
+        stop("No valid input for width provided.")
+    }
+    if(interactivePlot != TRUE && interactivePlot != FALSE){
+        stop("No valid input for interactivePlot provided.")
+    }
+    
     if(is.null(timepoints)){
         timepoints <- seaObject@timepoints ## by default all timepoints
     }
