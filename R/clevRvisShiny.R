@@ -808,7 +808,6 @@ clevRvisShiny <- function() {
             
             ##Save the input table in reactive value
             rawFile <- reactive({
-                suppressWarnings({
                     req(input$fileCCF)
                     file <- input$fileCCF
                     ext <- tools::file_ext(file$datapath)
@@ -834,13 +833,11 @@ clevRvisShiny <- function() {
                         }
                         
                     }else {
-                        stop(paste('File must be an excel (.xls / .xlsx) or a 
-                                    CSV (.csv)',
-                                    file$datapath, 'is not a valid file.'))
+                        stop('File must be an excel (.xls / .xlsx) or a 
+                            CSV (.csv) ',
+                            file$datapath, ' is not a valid file.')
                     }
                     
-                }) #end of suppressWarnings
-                
                 return(fracTable)
                 
             })
@@ -848,7 +845,7 @@ clevRvisShiny <- function() {
             #Check input options selected
             output$warnParents <- renderText({
                 df <- rawFile()
-                suppressWarnings(
+                suppressWarnings( 
                     if(!input$tpCols & sum(df[1,]=='parents', 
                                             na.rm = TRUE) == 1){
                         t <- "Please indicate through the corresponding switch 
@@ -868,16 +865,11 @@ clevRvisShiny <- function() {
             define parental relations, upload a file without the column "parents"'
                     } else { t <- NULL}
                 )
-                
-                
-                
-                
-                
             })
             
             ##Process ccf table
             fracTableR <- reactive({
-                suppressWarnings({
+                suppressWarnings({ 
                     req(input$fileCCF)
                     fracTable <- rawFile()
                     checkFirstCol <- sum(as.numeric(fracTable[,1]))
@@ -919,7 +911,6 @@ clevRvisShiny <- function() {
             
             ##Show ccf table OUTPUT
             output$OGccfTable <- DT::renderDataTable({
-                suppressWarnings({
                     df <- fracTableR()
                     if (!input$tpCols){
                         tps <- getTimepoints()
@@ -942,7 +933,6 @@ clevRvisShiny <- function() {
                                         buttons = c('csv', 'excel'),
                                         text = 'Download')),
                                     scrollX=TRUE, scrollCollapse=TRUE))
-                }) #end of suppressWarnings
             })
             
             ##Show parent vector as text output
@@ -1523,13 +1513,11 @@ clevRvisShiny <- function() {
                         customTps <- as.numeric(strsplit(input$customShowTps, ",")[[1]])
                         tps <- c(tps,customTps)
                     }
-                    suppressWarnings(extSharkPlot(seaObject,
+                        extSharkPlot(seaObject,
                                                 showLegend = input$legendShk,
                                                 main = input$mainShk,
-                                                timepoints = tps),
-                                    classes = 'warnings')
+                                                timepoints = tps)
                 } else {
-                    suppressWarnings({
                         try(
                             combinedPlot(seaObject, dolphin = input$dolphin,
                                         shark = input$shark, vlines = vlines,
@@ -1547,7 +1535,6 @@ clevRvisShiny <- function() {
                                         annotations = annotsTbl,
                                         pad.left = input$pad)
                         )
-                    })
                 }
             })
             
@@ -1644,7 +1631,6 @@ clevRvisShiny <- function() {
                         as.numeric(strsplit(input$customSymbolsPlc, ",")[[1]])
                     symbs <- c(symbs,customSymbs)
                 }
-                suppressWarnings(
                     plaicePlot(seaObject, clonesToFill = fillClones,
                             shape = input$shapePlc,
                             borderCol = input$borderColPlc, vlines=vlines,
@@ -1654,8 +1640,7 @@ clevRvisShiny <- function() {
                             separateIndependentClones = input$sepIndClPlc,
                             showLegend = input$legendPlc,
                             markMeasuredTimepoints = symbs,
-                            main = input$mainPlc, ylab = input$axisLabPlc),
-                    classes = 'warnings')
+                            main = input$mainPlc, ylab = input$axisLabPlc)
             })
             
             

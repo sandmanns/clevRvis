@@ -27,11 +27,8 @@
             ##check individual clones
             if (fracTable[clone, timept] > 0.000001) {
                 if (startedClone & endedClone) {
-                    stop(
-                        paste(
-                            "Clone", clone, "goes from present to absent
-                            (fraction=0) and then back to present."
-                        )
+                    stop("Clone", clone, "goes from present to absent
+                        (fraction=0) and then back to present."
                     )
                 }
                 startedClone <- TRUE
@@ -47,18 +44,15 @@
                     sum(fracTable[which(parents == clone), timept])
             if (diffr > 0.0001) {
                 if (startedDiff & endedDiff) {
-                    stop(
-                        paste(
-                            "The difference between clone ",
-                            clone,
-                            "and its subclones
-                            goes from present to absent (difference = 0) and
-                            then back to present at timepoint",
-                            timept,
-                            ". Subclones can't have the same CCF as the parent
-                                        (difference = 0) and then have less
-                                        CCF again."
-                        )
+                    stop("The difference between clone ",
+                        clone,
+                        "and its subclones
+                        goes from present to absent (difference = 0) and
+                        then back to present at timepoint",
+                        timept,
+                        ". Subclones can't have the same CCF as the parent
+                        (difference = 0) and then have less
+                        CCF again."
                     )
                 }
                 startedDiff <- TRUE
@@ -73,7 +67,7 @@
     ##clusters of entirely zero get a warning
     if (length(which(rowSums(fracTable) == 0)) > 0) {
         warning(
-            "WARNING: at least one cluster has fraction zero at all timepoints.
+            "at least one cluster has fraction zero at all timepoints.
                         It will not be displayed"
         )
     }
@@ -83,12 +77,9 @@
     for (timept in timepts) {
         independentClones <- which(parents == 0)
         if (sum(fracTable[independentClones, timept]) > 100.000001) {
-            stop(
-                paste(
-                    "clones with same nest level cannot have values that sum to
-                    more than 100%: Problem is in clusters ",
-                    paste(independentClones, collapse = ",")
-                )
+            helper_temp <- paste(independentClones, collapse = ",")
+            stop("clones with same nest level cannot have values that sum to
+                more than 100%: Problem is in clusters ",helper_temp
             )
         }
 
@@ -96,13 +87,11 @@
             if (i > 0) {
                 neighbors <- which(parents == i)
                 if (sum(fracTable[neighbors, timept]) > fracTable[parents[neighbors[1]],timept] + 0.000001) {
-                    stop(
-                        paste(
-                            "clones with same parent cannot have values that
-                            sum tomore than the percentage of the parent:
-                            Problem is in clusters ", paste(neighbors,
-                            collapse = ","), "at timepoint", timept
-                        )
+                    helper_temp <- paste(neighbors,collapse = ",")
+                    stop("clones with same parent cannot have values that
+                        sum tomore than the percentage of the parent:
+                        Problem is in clusters ", helper_temp,
+                        " at timepoint ", timept
                     )
                 }
             }
@@ -129,7 +118,7 @@
     nclones <- nrow(seaObject@fracTable)
     if (!(exists("nclones"))) {
         warning(
-            "WARNING: Could not set colors, as the number of rows in the
+            "Could not set colors, as the number of rows in the
             fracTable slot of the seaObject could not be calculated"
         )
         return(seaObject)
@@ -145,12 +134,8 @@
 
     ##else colors provided, check them for sanity
     if (length(col) != nrow(seaObject@fracTable)) {
-        stop(
-            paste(
-                "ERROR: number of colors provided must be equal to the number
-                of clones (", nclones, ")",
-                sep = ""
-            )
+        stop("number of colors provided must be equal to the number
+            of clones (", nclones, ")"
         )
     }
     seaObject@col <- col
@@ -328,11 +313,8 @@
 .getNestLevel <- function(parents, x) {
     #sanity checks
     if (x > length(parents)) {
-        stop(
-            paste(
-                "cannot have a parent that does not exist in list. parent =",
-                x, ", length(parents) =", length(parents)
-            )
+        stop("cannot have a parent that does not exist in list. parent =",
+            x, ", length(parents) =", length(parents)
         )
     }
     if (x < 0) {
@@ -1158,19 +1140,13 @@
             tpBefore <- therapyEffect[1]
             tpAfter <- therapyEffect[2]
             if (!(tpBefore %in% timepoints)) {
-                stop(
-                    paste(
-                        'The first timepoint provided in therapyEffect is not a
-                        valid timepoint.', tpBefore,
-                        'is not a measured timepoint'
-                    )
+                stop('The first timepoint provided in therapyEffect is not a
+                    valid timepoint. ', tpBefore,
+                    ' is not a measured timepoint'
                 )
             } else if (!(tpAfter %in% timepoints)) {
-                stop(
-                    paste(
-                        'The second timepoint provided in therapyEffect is not a
-                        valid timepoint.', tpAfter, 'is not a measured timepoint'
-                    )
+                stop('The second timepoint provided in therapyEffect is not a
+                    valid timepoint. ', tpAfter, ' is not a measured timepoint'
                 )
             } else{
                 therapyEffectTP <- (tpBefore + tpAfter) / 2
@@ -1180,12 +1156,9 @@
         } else if (length(therapyEffect == 1)) {
             if (therapyEffect > max(timepoints) |
                     therapyEffect < min(timepoints)) {
-                stop(
-                    paste(
-                        'The therapyEffect value must be between two measured
-                        timepoints.', therapyEffect, 'is not a valid therapy
-                        effect timepoint.'
-                    )
+                stop('The therapyEffect value must be between two measured
+                    timepoints. ', therapyEffect, ' is not a valid therapy
+                    effect timepoint.'
                 )
             } else {
                 ##Timepoints before and after the therapy effect estimation tp
@@ -1197,12 +1170,9 @@
             }
 
         } else{
-            stop(
-                paste(
-                    'therapyEffect must be either a vector with two values
-                    (two measured timepoints) or a estimated therapy effect
-                    timepoint', therapyEffect, 'is not a valid value'
-                )
+            stop('therapyEffect must be either a vector with two values
+                (two measured timepoints) or a estimated therapy effect
+                timepoint ', therapyEffect, ' is not a valid value'
             )
         }
 
@@ -1968,13 +1938,8 @@
 .getBranch <- function(parents, x) {
     #sanity checks
     if (x > length(parents)) {
-        stop(
-            paste(
-                "cannot have a parent that does not exist in list. parent =",
-                x,
-                ", length(parents) =",
-                length(parents)
-            )
+        stop("cannot have a parent that does not exist in list. parent =",
+            x,", length(parents) =",length(parents)
         )
     }
     if (x < 0) {

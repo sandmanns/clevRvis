@@ -28,6 +28,16 @@ createSeaObject <- function(fracTable, parents, timepoints,
     if(!is.null(therapyEffect) && !is.numeric(therapyEffect)){
         stop("No valid input for therapyEffect provided.")
     }
+    if(nrow(fracTable) != length(parents)){
+        stop("Number of clones defined in the fractable does not match number
+            of clones defined in parents (", nrow(fracTable), " vs ",
+            length(parents), ").")
+    }
+    if(ncol(fracTable) != length(timepoints)){
+        stop("Number of time points defined in the fractable does not match 
+            number of time points defined in timepoints (", ncol(fracTable), 
+            " vs ", length(timepoints), ").")
+    }
     
     # nest levels
     nestLevels <- .getAllNestLevels(parents)
@@ -46,10 +56,10 @@ createSeaObject <- function(fracTable, parents, timepoints,
 
     ## Check for single timepoints that timepoint estimation is true
     if (!timepointInterpolation & length(timepoints) == 1) {
-        stop("ERROR: To visualize clonal evolution from single timepoint
+        stop("To visualize clonal evolution from single timepoint
             timepointInterpolation mustbe set to TRUE")
     } else if (is.null(originTimepoint) & length(timepoints) == 1) {
-        stop('ERROR: To visualize clonal evolution from a single timepoint
+        stop('To visualize clonal evolution from a single timepoint
             originTimepoint must be manually specified.')
     }
 
@@ -58,10 +68,10 @@ createSeaObject <- function(fracTable, parents, timepoints,
         originTimepoint <- timepoints[1] - (timepoints[2] - timepoints[1])
     } else {
         if (!(is.numeric(originTimepoint))) {
-            stop("ERROR: originTimepoint must be a numeric value")
+            stop("originTimepoint must be a numeric value")
         }
         if (originTimepoint >= min(timepoints)) {
-            stop("ERROR: originTimepoint must be a timepoint before
+            stop("originTimepoint must be a timepoint before
                 the first timepoint in the timepoints vector")
         }
     }

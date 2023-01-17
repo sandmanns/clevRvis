@@ -19,6 +19,17 @@ extSharkPlot <- function(seaObject, showLegend = FALSE, main = NULL,
     if(interactivePlot != TRUE && interactivePlot != FALSE){
         stop("No valid input for interactivePlot provided.")
     }
+    if(nrow(fracTable(seaObject)) != length(parents(seaObject))){
+        stop("Number of clones defined in the fractable does not match number
+            of clones defined in parents (", nrow(fracTable(seaObject)), " vs ",
+            length(parents(seaObject)), ").")
+    }
+    if(ncol(fracTable(seaObject)) != length(timepoints(seaObject))){
+        stop("Number of time points defined in the fractable does not match 
+            number of time points defined in timepoints (", 
+            ncol(fracTable(seaObject)), " vs ", length(timepoints(seaObject)), 
+            ").")
+    }
     
     if(is.null(timepoints)){
         timepoints <- seaObject@timepoints ## by default all timepoints
@@ -81,7 +92,7 @@ extSharkPlot <- function(seaObject, showLegend = FALSE, main = NULL,
                 geom_point_interactive(mapping = aes(x = x, y = y, color = lab,
                                                     size = ccf, tooltip = ccf,
                                                     data_id = lab),
-                                        data = df,
+                                        data = df[!is.na(df$lab),],
                                         show.legend = showLegend) +
         scale_colour_manual(values = seaObject@col[clone_ids],
                                                 name = "Clone labels",
@@ -105,15 +116,15 @@ extSharkPlot <- function(seaObject, showLegend = FALSE, main = NULL,
     if (interactivePlot){
     tooltip_css <- "color:black;padding:10px;border-radius:10px 20px 10px 20px;"
 
-        suppressWarnings(girafe(ggobj = shkPlt+dotplot, width_svg = width,
-                                height_svg = 10) %>%
-                        girafe_options(opts_sizing(rescale = FALSE),
-                                        opts_hover_inv(css = "opacity:0.3;"),
-                                        opts_hover(css = "opacity:1;"),
-                                        opts_tooltip(css = tooltip_css,
-                                        use_fill=TRUE)))
+        girafe(ggobj = shkPlt+dotplot, width_svg = width,
+                        height_svg = 10) %>%
+                girafe_options(opts_sizing(rescale = FALSE),
+                                opts_hover_inv(css = "opacity:0.3;"),
+                                opts_hover(css = "opacity:1;"),
+                                opts_tooltip(css = tooltip_css,
+                                use_fill=TRUE))
     } else {
-        suppressWarnings(plot_grid(shkPlt,dotplot))
+        plot_grid(shkPlt,dotplot)
     }
 
 }

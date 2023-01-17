@@ -81,6 +81,17 @@ combinedPlot <- function(seaObject, shark = TRUE, dolphin = TRUE,
     if(!is.numeric(height) || height <= 0){
         stop("No valid input for height provided.")
     }
+    if(nrow(fracTable(seaObject)) != length(parents(seaObject))){
+        stop("Number of clones defined in the fractable does not match number
+            of clones defined in parents (", nrow(fracTable(seaObject)), " vs ",
+            length(parents(seaObject)), ").")
+    }
+    if(ncol(fracTable(seaObject)) != length(timepoints(seaObject))){
+        stop("Number of time points defined in the fractable does not match 
+            number of time points defined in timepoints (", 
+            ncol(fracTable(seaObject)), " vs ", length(timepoints(seaObject)), 
+            ").")
+    }
 
     tooltip_css <- "color:black;padding:10px;border-radius:10px 20px 10px 20px;"
 

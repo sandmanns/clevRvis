@@ -6,6 +6,12 @@ exploreTrees <- function(fracTable, timepoints){
     if(!is.vector(timepoints) || !is.numeric(timepoints)){
         stop("No valid input for timepoints provided.")
     }
+    if(ncol(fracTable) != length(timepoints)){
+        stop("Number of time points defined in the fractable does not match 
+            number of time points defined in timepoints (", ncol(fracTable), 
+            " vs ", length(timepoints), ").")
+    }
+    
     #get matrix (TRUE/FALSE) indicating each clone's possible parents
     possible <- .possibleParents(fracTable)
 

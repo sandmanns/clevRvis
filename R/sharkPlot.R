@@ -9,6 +9,17 @@ sharkPlot <- function(seaObject, showLegend = FALSE, main = NULL){
     if(!is.null(main) && !is.character(main)){
         stop("No valid input for main provided.")
     }
+    if(nrow(fracTable(seaObject)) != length(parents(seaObject))){
+        stop("Number of clones defined in the fractable does not match number
+            of clones defined in parents (", nrow(fracTable(seaObject)), " vs ",
+            length(parents(seaObject)), ").")
+    }
+    if(ncol(fracTable(seaObject)) != length(timepoints(seaObject))){
+        stop("Number of time points defined in the fractable does not match 
+            number of time points defined in timepoints (", 
+            ncol(fracTable(seaObject)), " vs ", length(timepoints(seaObject)), 
+            ").")
+    }
     
     name<-NULL
     lab<-NULL
