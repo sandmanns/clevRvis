@@ -1,7 +1,7 @@
 Package: clevRvis
 Type: Package
 Title: Visualization Techniques for Clonal Evolution
-Version: 0.99.5
+Version: 0.99.6
 Authors@R: 
 	person("Sarah", "Sandmann", , "sarah.sandmann@uni-muenster.de", role = c("aut", "cre"),comment=c(ORCID="0000-0002-5011-0641"))
 Description: clevRvis provides a set of visualization
@@ -16,7 +16,7 @@ LazyData: false
 Requires: shiny, ggraph, igraph, ggiraph, cowplot, htmlwidgets, readxl, dplyr, readr, purrr, tibble, patchwork, R.utils, shinyWidgets, colorspace, shinyhelper, shinycssloaders, ggnewscale, shinydashboard, DT, colourpicker, grDevices, methods, utils, stats, ggplot2, magrittr, tools
 Imports: shiny, ggraph, igraph, ggiraph, cowplot, htmlwidgets, readxl, dplyr, readr, purrr, tibble, patchwork, R.utils, shinyWidgets, colorspace, shinyhelper, shinycssloaders, ggnewscale, shinydashboard, DT, colourpicker, grDevices, methods, utils, stats, ggplot2, magrittr, tools
 VignetteBuilder: knitr
-Suggests: knitr, rmarkdown
+Suggests: knitr, rmarkdown, BiocStyle
 biocViews: Software, ShinyApps, Visualization
 BugReports: https://github.com/sandmanns/clevRvis/issues
 URL: https://github.com/sandmanns/clevRvis
