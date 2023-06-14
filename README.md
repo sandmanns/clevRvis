@@ -10,10 +10,23 @@ clevRvis provides an extensive set of visualization techniques for clonal evolut
 To run clevRvis, you need R Version 4.1.0 or higher.
 
 ##  Installation
-clevRvis is currently under development. The latest version can be installed from github using the following command:
+clevRvis is available at Bioconductor. The latest version can be installed via:
+
+```
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("clevRvis")
+```
+
+
+The latest version available at github can be installed via:
 
 ```
 if (!requireNamespace("devtools", quietly=TRUE))
   install.packages("devtools")
 devtools::install_github("sandmanns/clevRvis")
 ```
+
+##  Citation
+Sandmann S, Inserte C, Varghese J. clevRvis: visualization techniques for clonal evolution. Gigascience. 2022;12:giad020. 
+https://doi.org/10.1093/gigascience/giad020
